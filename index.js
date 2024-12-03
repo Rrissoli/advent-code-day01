@@ -26,17 +26,12 @@ function organizeArrays(arrLeft, arrRight) {
 }
 
 function normalization(arrRight, arrLeft) {
-  let count = 0;
   for (let index = 0; index < arrLeft.length; index++) {
-    arrRight.map((y) => {
-      if (arrLeft[index] === y) {
-        console.log(arrLeft[index], y);
-
-        count++;
-      }
-    });
-    arrLeft[index] = arrLeft[index] * count;
-    count = 0;
+    let arrCount = 0;
+    if (arrRight.includes(arrLeft[index])) {
+      arrCount = arrRight.filter((x) => arrLeft[index] == x).length;
+    }
+    arrResult.push(arrLeft[index] * arrCount);
   }
 }
 
@@ -51,10 +46,20 @@ function returnDistance(arrLeft, arrRight) {
   return result;
 }
 
+function similarity(arrLeft) {
+  console.log(arrResult);
+  const initialValue = 0;
+  const sumWithInitial = arrResult.reduce(
+    (accumulator, currentValue) => accumulator + currentValue,
+    initialValue
+  );
+  return sumWithInitial
+}
 async function main() {
   await readFileTxtAndReturnResult();
-  organizeArrays(arrLeft, arrRight);
   normalization(arrRight, arrLeft);
-  console.log(returnDistance(arrLeft, arrRight));
+  organizeArrays(arrLeft, arrRight);
+
+  console.log(similarity(arrLeft));
 }
 main();
